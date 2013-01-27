@@ -1,22 +1,14 @@
-package org.andengine.util.mime;
+package org.andengine.util;
+
+import android.database.Cursor;
 
 /**
- * (c) 2010 Nicolas Gramlich 
- * (c) 2011 Zynga Inc.
+ * (c) 2013 Zynga Inc.
  * 
  * @author Nicolas Gramlich
- * @since 14:58:20 - 10.01.2011
+ * @since 15:30:15 - 23.01.2013
  */
-public enum MIMEType {
-	// ===========================================================
-	// Elements
-	// ===========================================================
-
-	JPEG("image/jpeg"),
-	GIF("image/gif"),
-	PNG("image/png"),
-	TEXT("text/plain");
-
+public class DatabaseUtils {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -24,24 +16,14 @@ public enum MIMEType {
 	// ===========================================================
 	// Fields
 	// ===========================================================
-	
-	private final String mTypeString;
 
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 
-	private MIMEType(final String pTypeString) {
-		this.mTypeString = pTypeString;
-	}
-
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
-
-	public String getTypeString() {
-		return this.mTypeString;
-	}
 
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
@@ -50,6 +32,12 @@ public enum MIMEType {
 	// ===========================================================
 	// Methods
 	// ===========================================================
+
+	public static final void close(final Cursor pCursor) {
+		if(pCursor != null) {
+			pCursor.close();
+		}
+	}
 
 	// ===========================================================
 	// Inner and Anonymous Classes
