@@ -20,7 +20,7 @@ import android.os.Debug.MemoryInfo;
 /**
  * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga Inc.
- * 
+ *
  * @author Nicolas Gramlich
  * @since 15:50:31 - 14.07.2010
  */
@@ -55,7 +55,7 @@ public class SystemUtils {
 
 	public static MemoryInfo getMemoryInfo() {
 		/* Lazy allocation. */
-		if(SystemUtils.sMemoryInfo == null) {
+		if (SystemUtils.sMemoryInfo == null) {
 			SystemUtils.sMemoryInfo = new MemoryInfo();
 		}
 
@@ -106,9 +106,14 @@ public class SystemUtils {
 	}
 
 	public static boolean hasSystemFeature(final Context pContext, final String pFeature) {
+		final PackageManager packageManager = pContext.getPackageManager();
 		try {
-			final Method PackageManager_hasSystemFeatures = PackageManager.class.getMethod("hasSystemFeature", new Class[] { String.class });
-			return (PackageManager_hasSystemFeatures == null) ? false : (Boolean) PackageManager_hasSystemFeatures.invoke(pContext.getPackageManager(), pFeature);
+			try {
+				return packageManager.hasSystemFeature(pFeature);
+			} catch (final Throwable t) {
+				final Method PackageManager_hasSystemFeatures = PackageManager.class.getMethod("hasSystemFeature", new Class[] { String.class });
+				return (PackageManager_hasSystemFeatures == null) ? false : (Boolean) PackageManager_hasSystemFeatures.invoke(packageManager, pFeature);
+			}
 		} catch (final Throwable t) {
 			return false;
 		}
@@ -140,7 +145,7 @@ public class SystemUtils {
 		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/cpuinfo", SystemUtils.BOGOMIPS_PATTERN, 1000);
 
 		try {
-			if(matchResult.groupCount() > 0) {
+			if (matchResult.groupCount() > 0) {
 				return Float.parseFloat(matchResult.group(1));
 			} else {
 				throw new SystemUtilsException();
@@ -158,7 +163,7 @@ public class SystemUtils {
 		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", SystemUtils.MEMTOTAL_PATTERN, 1000);
 
 		try {
-			if(matchResult.groupCount() > 0) {
+			if (matchResult.groupCount() > 0) {
 				return Long.parseLong(matchResult.group(1));
 			} else {
 				throw new SystemUtilsException();
@@ -176,7 +181,7 @@ public class SystemUtils {
 		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", SystemUtils.MEMFREE_PATTERN, 1000);
 
 		try {
-			if(matchResult.groupCount() > 0) {
+			if (matchResult.groupCount() > 0) {
 				return Long.parseLong(matchResult.group(1));
 			} else {
 				throw new SystemUtilsException();
@@ -235,7 +240,7 @@ public class SystemUtils {
 			final Scanner scanner = new Scanner(in);
 
 			final boolean matchFound = scanner.findWithinHorizon(pPattern, pHorizon) != null;
-			if(matchFound) {
+			if (matchFound) {
 				return scanner.match();
 			} else {
 				throw new SystemUtilsException();

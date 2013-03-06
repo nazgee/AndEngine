@@ -11,13 +11,14 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import org.andengine.util.debug.Debug;
 
 /**
  * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga Inc.
- * 
+ *
  * @author Nicolas Gramlich
  * @since 15:48:56 - 03.09.2009
  */
@@ -49,6 +50,23 @@ public final class StreamUtils {
 	// ===========================================================
 	// Methods
 	// ===========================================================
+
+	public static String[] readLines(final InputStream pInputStream) throws IOException {
+		return StreamUtils.readLines(new InputStreamReader(pInputStream));
+	}
+
+	public static String[] readLines(final Reader pReader) throws IOException {
+		final BufferedReader reader = new BufferedReader(pReader);
+
+		final ArrayList<String> lines = new ArrayList<String>();
+
+		String line = null;
+		while((line = reader.readLine()) != null) {
+			lines.add(line);
+		}
+
+		return lines.toArray(new String[lines.size()]);
+	}
 
 	public static final String readFully(final InputStream pInputStream) throws IOException {
 		final StringWriter writer = new StringWriter();
@@ -90,7 +108,7 @@ public final class StreamUtils {
 	 * @throws IOException
 	 */
 	public static final void streamToBytes(final InputStream pInputStream, final int pByteLimit, final byte[] pData, final int pOffset) throws IOException {
-		if(pByteLimit > pData.length - pOffset) {
+		if (pByteLimit > pData.length - pOffset) {
 			throw new IOException("pData is not big enough.");
 		}
 
@@ -99,14 +117,14 @@ public final class StreamUtils {
 		int read;
 		while((read = pInputStream.read(pData, pOffset + readTotal, pBytesLeftToRead)) != StreamUtils.END_OF_STREAM) {
 			readTotal += read;
-			if(pBytesLeftToRead > read) {
+			if (pBytesLeftToRead > read) {
 				pBytesLeftToRead -= read;
 			} else {
 				break;
 			}
 		}
 
-		if(readTotal != pByteLimit) {
+		if (readTotal != pByteLimit) {
 			throw new IOException("ReadLimit: '" + pByteLimit + "', Read: '" + readTotal + "'.");
 		}
 	}
@@ -144,7 +162,7 @@ public final class StreamUtils {
 	 * @throws IOException If any error occurs during the copy.
 	 */
 	public static final void copy(final InputStream pInputStream, final OutputStream pOutputStream, final int pByteLimit) throws IOException {
-		if(pByteLimit == StreamUtils.END_OF_STREAM) {
+		if (pByteLimit == StreamUtils.END_OF_STREAM) {
 			final byte[] buf = new byte[StreamUtils.IO_BUFFER_SIZE];
 			int read;
 			while((read = pInputStream.read(buf)) != StreamUtils.END_OF_STREAM) {
@@ -157,7 +175,7 @@ public final class StreamUtils {
 
 			int read;
 			while((read = pInputStream.read(buf, 0, bufferReadLimit)) != StreamUtils.END_OF_STREAM) {
-				if(pBytesLeftToRead > read) {
+				if (pBytesLeftToRead > read) {
 					pOutputStream.write(buf, 0, read);
 					pBytesLeftToRead -= read;
 				} else {
@@ -182,7 +200,7 @@ public final class StreamUtils {
 	}
 
 	public static final void close(final Closeable pCloseable) {
-		if(pCloseable != null) {
+		if (pCloseable != null) {
 			try {
 				pCloseable.close();
 			} catch (final IOException e) {
@@ -192,7 +210,7 @@ public final class StreamUtils {
 	}
 
 	public static final void flushAndCloseStream(final OutputStream pOutputStream) {
-		if(pOutputStream != null) {
+		if (pOutputStream != null) {
 			try {
 				pOutputStream.flush();
 			} catch (final IOException e) {
@@ -204,7 +222,7 @@ public final class StreamUtils {
 	}
 
 	public static final void flushAndCloseWriter(final Writer pWriter) {
-		if(pWriter != null) {
+		if (pWriter != null) {
 			try {
 				pWriter.flush();
 			} catch (final IOException e) {

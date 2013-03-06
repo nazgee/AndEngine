@@ -4,7 +4,7 @@ import android.database.Cursor;
 
 /**
  * (c) 2013 Zynga Inc.
- * 
+ *
  * @author Nicolas Gramlich
  * @since 15:30:15 - 23.01.2013
  */
@@ -34,7 +34,7 @@ public class DatabaseUtils {
 	// ===========================================================
 
 	public static final void close(final Cursor pCursor) {
-		if(pCursor != null) {
+		if (pCursor != null) {
 			pCursor.close();
 		}
 	}

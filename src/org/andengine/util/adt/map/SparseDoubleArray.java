@@ -19,7 +19,7 @@ package org.andengine.util.adt.map;
 import org.andengine.util.adt.array.ArrayUtils;
 
 /**
- * SparseBooleanArrays map integers to doubles.
+ * SparseDoubleArrays map integers to doubles.
  * Unlike a normal array of doubles
  * there can be gaps in the indices.  It is intended to be more efficient
  * than using a HashMap to map Integers to Booleans.
@@ -143,16 +143,16 @@ public class SparseDoubleArray implements Cloneable {
     /**
      * Given an index in the range <code>0...size()-1</code>, returns
      * the key from the <code>index</code>th key-value mapping that this
-     * SparseDoubleArray stores.  
+     * SparseDoubleArray stores.
      */
     public int keyAt(int index) {
         return mKeys[index];
     }
-    
+
     /**
      * Given an index in the range <code>0...size()-1</code>, returns
      * the value from the <code>index</code>th key-value mapping that this
-     * SparseDoubleArray stores.  
+     * SparseDoubleArray stores.
      */
     public double valueAt(int index) {
         return mValues[index];
@@ -219,7 +219,7 @@ public class SparseDoubleArray implements Cloneable {
         mValues[pos] = value;
         mSize = pos + 1;
     }
-    
+
     private static int binarySearch(int[] a, int start, int len, int key) {
         int high = start + len, low = start - 1, guess;
 
