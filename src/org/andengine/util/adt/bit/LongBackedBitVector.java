@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.andengine.util.adt.DataConstants;
+import org.andengine.util.adt.data.constants.DataConstants;
 import org.andengine.util.exception.MethodNotYetImplementedException;
 
 
@@ -55,7 +55,7 @@ public class LongBackedBitVector extends BitVector {
 	}
 
 	public LongBackedBitVector(final int pSize, final long[] pData) throws IllegalArgumentException {
-		if (pData == null){
+		if (pData == null) {
 			throw new IllegalArgumentException("pData must not be null");
 		}
 

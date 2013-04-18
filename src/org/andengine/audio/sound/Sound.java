@@ -105,7 +105,7 @@ public class Sound extends BaseAudioEntity {
 
 	@Override
 	protected SoundManager getAudioManager() throws SoundReleasedException {
-		return (SoundManager)super.getAudioManager();
+		return (SoundManager) super.getAudioManager();
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.andengine.audio.music.MusicFactory;
 import org.andengine.audio.music.MusicManager;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.audio.sound.SoundManager;
+import org.andengine.audio.sound.exception.SoundException;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.DrawHandlerList;
 import org.andengine.engine.handler.IDrawHandler;
@@ -329,7 +330,8 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 	@Override
 	public void onAccuracyChanged(final Sensor pSensor, final int pAccuracy) {
 		if (this.mRunning) {
-			switch (pSensor.getType()) {
+			final int sensorType = pSensor.getType();
+			switch (sensorType) {
 				case Sensor.TYPE_ACCELEROMETER:
 					if (this.mAccelerationData != null) {
 						this.mAccelerationData.setAccuracy(pAccuracy);
@@ -343,6 +345,8 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 					this.mOrientationData.setMagneticFieldAccuracy(pAccuracy);
 					this.mOrientationListener.onOrientationAccuracyChanged(this.mOrientationData);
 					break;
+				default:
+					throw new IllegalArgumentException("Unexpected " + Sensor.class.getSimpleName() + " of Type: '" + sensorType + "'.");
 			}
 		}
 	}
@@ -350,7 +354,9 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 	@Override
 	public void onSensorChanged(final SensorEvent pEvent) {
 		if (this.mRunning) {
-			switch (pEvent.sensor.getType()) {
+			final Sensor sensor = pEvent.sensor;
+			final int sensorType = sensor.getType();
+			switch (sensorType) {
 				case Sensor.TYPE_ACCELEROMETER:
 					if (this.mAccelerationData != null) {
 						this.mAccelerationData.setDisplayRotation(this.getDisplayOrientation());
@@ -367,6 +373,8 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 					this.mOrientationData.setMagneticFieldValues(pEvent.values);
 					this.mOrientationListener.onOrientationChanged(this.mOrientationData);
 					break;
+				default:
+					throw new IllegalArgumentException("Unexpected " + Sensor.class.getSimpleName() + " of Type: '" + sensorType + "'.");
 			}
 		}
 	}
@@ -407,6 +415,8 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 			case LocationProvider.TEMPORARILY_UNAVAILABLE:
 				this.mLocationListener.onLocationProviderStatusChanged(LocationProviderStatus.TEMPORARILY_UNAVAILABLE, pExtras);
 				break;
+			default:
+				throw new IllegalArgumentException("Unexpected " + LocationProvider.class.getSimpleName() + ": '" + pStatus + "'.");
 		}
 	}
 
@@ -843,7 +853,7 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		public void run() {
 			android.os.Process.setThreadPriority(this.mEngine.getEngineOptions().getUpdateThreadPriority());
 			try {
-				while(true) {
+				while (true) {
 					this.mRunnableHandler.onUpdate(0);
 					this.mEngine.onTickUpdate();
 				}
@@ -945,13 +955,13 @@ public class Engine implements SensorEventListener, OnTouchListener, ITouchEvent
 		}
 
 		void waitUntilCanDraw() throws InterruptedException {
-			while(!this.mDrawing.get()) {
+			while (!this.mDrawing.get()) {
 				this.mDrawingCondition.await();
 			}
 		}
 
 		void waitUntilCanUpdate() throws InterruptedException {
-			while(this.mDrawing.get()) {
+			while (this.mDrawing.get()) {
 				this.mDrawingCondition.await();
 			}
 		}
