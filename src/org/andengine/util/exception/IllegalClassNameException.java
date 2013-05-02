@@ -1,17 +1,19 @@
-package org.andengine.util.experiment.exception;
+package org.andengine.util.exception;
+
+import org.andengine.util.exception.AndEngineRuntimeException;
 
 /**
  * (c) 2013 Nicolas Gramlich
- * 
- * @author Nicolas Gramlich
- * @since 08:25:34 - 22.03.2013
+ *
+ * @author Nicolas Gramlich <ngramlich@zynga.com>
+ * @since 21:33:53 - 01.05.2013
  */
-public class ExperimentNotFoundException extends ExperimentException {
+public class IllegalClassNameException extends AndEngineRuntimeException {
 	// ===========================================================
 	// Constants
 	// ===========================================================
 
-	private static final long serialVersionUID = 8872925957672647007L;
+	private static final long serialVersionUID = 5615299668631505188L;
 
 	// ===========================================================
 	// Fields
@@ -21,19 +23,19 @@ public class ExperimentNotFoundException extends ExperimentException {
 	// Constructors
 	// ===========================================================
 
-	public ExperimentNotFoundException() {
+	public IllegalClassNameException() {
 		super();
 	}
 
-	public ExperimentNotFoundException(final String pMessage) {
+	public IllegalClassNameException(final String pMessage) {
 		super(pMessage);
 	}
 
-	public ExperimentNotFoundException(final Throwable pThrowable) {
+	public IllegalClassNameException(final Throwable pThrowable) {
 		super(pThrowable);
 	}
 
-	public ExperimentNotFoundException(final String pMessage, final Throwable pThrowable) {
+	public IllegalClassNameException(final String pMessage, final Throwable pThrowable) {
 		super(pMessage, pThrowable);
 	}
 
