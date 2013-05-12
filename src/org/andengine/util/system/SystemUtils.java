@@ -107,6 +107,11 @@ public final class SystemUtils {
 		}
 	}
 
+	public static String getApplicationLabel(final Context pContext) throws SystemUtilsException {
+	    final int labelResID = SystemUtils.getApplicationInfo(pContext).labelRes;
+	    return pContext.getString(labelResID);
+	}
+
 	public static int getPackageVersionCode(final Context pContext) throws SystemUtilsException {
 		return SystemUtils.getPackageInfo(pContext).versionCode;
 	}
@@ -145,6 +150,10 @@ public final class SystemUtils {
 		} catch (final NameNotFoundException e) {
 			throw new SystemUtilsException(e);
 		}
+	}
+
+	public static int getTargetSDKVersion(final Context pContext) throws SystemUtilsException {
+		return SystemUtils.getApplicationInfo(pContext).targetSdkVersion;
 	}
 
 	public static boolean hasSystemFeature(final Context pContext, final String pFeature) throws SystemUtilsException {
