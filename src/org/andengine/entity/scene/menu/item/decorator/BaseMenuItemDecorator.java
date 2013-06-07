@@ -260,6 +260,16 @@ public abstract class BaseMenuItemDecorator implements IMenuItem {
 	}
 
 	@Override
+	public float getRotationOffset() {
+		return this.mMenuItem.getRotationOffset();
+	}
+
+	@Override
+	public void setRotationOffset(final float pRotation) {
+		this.mMenuItem.setRotationOffset(pRotation);
+	}
+
+	@Override
 	public float getRotationCenterX() {
 		return this.mMenuItem.getRotationCenterX();
 	}
@@ -573,6 +583,46 @@ public abstract class BaseMenuItemDecorator implements IMenuItem {
 	@Override
 	public boolean contains(final float pX, final float pY) {
 		return this.mMenuItem.contains(pX, pY);
+	}
+
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float pX, final float pY) {
+		return this.mMenuItem.convertLocalCoordinatesToParentCoordinates(pX, pY);
+	}
+	
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float pX, final float pY, final float[] pReuse) {
+		return this.mMenuItem.convertLocalCoordinatesToParentCoordinates(pX, pY, pReuse);
+	}
+	
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float[] pCoordinates) {
+		return this.mMenuItem.convertLocalCoordinatesToParentCoordinates(pCoordinates);
+	}
+	
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float[] pCoordinates, final float[] pReuse) {
+		return this.mMenuItem.convertLocalCoordinatesToParentCoordinates(pCoordinates, pReuse);
+	}
+	
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float pX, final float pY) {
+		return this.mMenuItem.convertParentCoordinatesToLocalCoordinates(pX, pY);
+	}
+	
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float pX, final float pY, final float[] pReuse) {
+		return this.mMenuItem.convertParentCoordinatesToLocalCoordinates(pX, pY, pReuse);
+	}
+	
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float[] pCoordinates) {
+		return this.mMenuItem.convertParentCoordinatesToLocalCoordinates(pCoordinates);
+	}
+	
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float[] pCoordinates, final float[] pReuse) {
+		return this.mMenuItem.convertParentCoordinatesToLocalCoordinates(pCoordinates, pReuse);
 	}
 
 	@Override

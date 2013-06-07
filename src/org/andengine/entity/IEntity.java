@@ -37,6 +37,7 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable, ITou
 	public static final float OFFSET_CENTER_Y_DEFAULT = 0.5f;
 
 	public static final float ROTATION_DEFAULT = 0;
+	public static final float ROTATION_OFFSET_DEFAULT = 0;
 	public static final float ROTATION_CENTER_X_DEFAULT = 0.5f;
 	public static final float ROTATION_CENTER_Y_DEFAULT = 0.5f;
 
@@ -115,6 +116,8 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable, ITou
 	public boolean isRotated();
 	public float getRotation();
 	public void setRotation(final float pRotation);
+	public float getRotationOffset();
+	public void setRotationOffset(final float pRotationOffset);
 
 	public float getRotationCenterX();
 	public float getRotationCenterY();
@@ -181,6 +184,56 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable, ITou
 	 * @return <code>pReuse</code> as a convenience.
 	 */
 	public float[] getSceneCenterCoordinates(final float[] pReuse);
+
+	/**
+	 * @param pX
+	 * @param pY
+	 * @return a shared(!) float[] of length 2.
+	 */
+	public float[] convertLocalCoordinatesToParentCoordinates(final float pX, final float pY);
+	/**
+	 * @param pX
+	 * @param pY
+	 * @param pReuse must be of length 2.
+	 * @return <code>pReuse</code> as a convenience.
+	 */
+	public float[] convertLocalCoordinatesToParentCoordinates(final float pX, final float pY, final float[] pReuse);
+	/**
+	 * @param pCoordinates must be of length 2.
+	 * @return a shared(!) float[] of length 2.
+	 */
+	public float[] convertLocalCoordinatesToParentCoordinates(final float[] pCoordinates);
+	/**
+	 * @param pCoordinates must be of length 2.
+	 * @param pReuse must be of length 2.
+	 * @return <code>pReuse</code> as a convenience.
+	 */
+	public float[] convertLocalCoordinatesToParentCoordinates(final float[] pCoordinates, final float[] pReuse);
+
+	/**
+	 * @param pX
+	 * @param pY
+	 * @return a shared(!) float[] of length 2.
+	 */
+	public float[] convertParentCoordinatesToLocalCoordinates(final float pX, final float pY);
+	/**
+	 * @param pX
+	 * @param pY
+	 * @param pReuse must be of length 2.
+	 * @return <code>pReuse</code> as a convenience.
+	 */
+	public float[] convertParentCoordinatesToLocalCoordinates(final float pX, final float pY, final float[] pReuse);
+	/**
+	 * @param pCoordinates must be of length 2.
+	 * @return a shared(!) float[] of length 2.
+	 */
+	public float[] convertParentCoordinatesToLocalCoordinates(final float[] pCoordinates);
+	/**
+	 * @param pCoordinates must be of length 2.
+	 * @param pReuse must be of length 2.
+	 * @return <code>pReuse</code> as a convenience.
+	 */
+	public float[] convertParentCoordinatesToLocalCoordinates(final float[] pCoordinates, final float[] pReuse);
 
 	/**
 	 * @param pX

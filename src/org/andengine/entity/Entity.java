@@ -39,6 +39,8 @@ public class Entity implements IEntity {
 
 	private static final float[] VERTICES_SCENE_TO_LOCAL_TMP = new float[2];
 	private static final float[] VERTICES_LOCAL_TO_SCENE_TMP = new float[2];
+	private static final float[] VERTICES_PARENT_TO_LOCAL_TMP = new float[2];
+	private static final float[] VERTICES_LOCAL_TO_PARENT_TMP = new float[2];
 
 	private static final ParameterCallable<IEntity> PARAMETERCALLABLE_DETACHCHILD = new ParameterCallable<IEntity>() {
 		@Override
@@ -84,6 +86,7 @@ public class Entity implements IEntity {
 	protected float mHeight;
 
 	protected float mRotation = IEntity.ROTATION_DEFAULT;
+	protected float mRotationOffset = IEntity.ROTATION_OFFSET_DEFAULT;
 
 	protected float mRotationCenterX = IEntity.ROTATION_CENTER_X_DEFAULT;
 	protected float mRotationCenterY = IEntity.ROTATION_CENTER_Y_DEFAULT;
@@ -417,6 +420,16 @@ public class Entity implements IEntity {
 
 		this.mLocalToParentTransformationDirty = true;
 		this.mParentToLocalTransformationDirty = true;
+	}
+
+	@Override
+	public float getRotationOffset() {
+		return this.mRotationOffset;
+	}
+
+	@Override
+	public void setRotationOffset(final float pRotationOffset) {
+		this.mRotationOffset = pRotationOffset;
 	}
 
 	@Override
@@ -1243,6 +1256,70 @@ public class Entity implements IEntity {
 	}
 
 	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float pX, final float pY) {
+		return this.convertLocalCoordinatesToParentCoordinates(pX, pY, Entity.VERTICES_LOCAL_TO_PARENT_TMP);
+	}
+
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float pX, final float pY, final float[] pReuse) {
+		final Transformation localToParentTransformation = this.getLocalToParentTransformation();
+
+		pReuse[Constants.VERTEX_INDEX_X] = pX;
+		pReuse[Constants.VERTEX_INDEX_Y] = pY;
+
+		localToParentTransformation.transform(pReuse);
+
+		return pReuse;
+	}
+
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float[] pCoordinates) {
+		return this.convertLocalCoordinatesToParentCoordinates(pCoordinates, Entity.VERTICES_LOCAL_TO_PARENT_TMP);
+	}
+
+	@Override
+	public float[] convertLocalCoordinatesToParentCoordinates(final float[] pCoordinates, final float[] pReuse) {
+		final Transformation localToParentTransformation = this.getLocalToParentTransformation();
+
+		pReuse[Constants.VERTEX_INDEX_X] = pCoordinates[Constants.VERTEX_INDEX_X];
+		pReuse[Constants.VERTEX_INDEX_Y] = pCoordinates[Constants.VERTEX_INDEX_Y];
+
+		localToParentTransformation.transform(pReuse);
+
+		return pReuse;
+	}
+
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float pX, final float pY) {
+		return this.convertParentCoordinatesToLocalCoordinates(pX, pY, Entity.VERTICES_PARENT_TO_LOCAL_TMP);
+	}
+
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float pX, final float pY, final float[] pReuse) {
+		pReuse[Constants.VERTEX_INDEX_X] = pX;
+		pReuse[Constants.VERTEX_INDEX_Y] = pY;
+
+		this.getParentToLocalTransformation().transform(pReuse);
+
+		return pReuse;
+	}
+
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float[] pCoordinates) {
+		return this.convertParentCoordinatesToLocalCoordinates(pCoordinates, Entity.VERTICES_PARENT_TO_LOCAL_TMP);
+	}
+
+	@Override
+	public float[] convertParentCoordinatesToLocalCoordinates(final float[] pCoordinates, final float[] pReuse) {
+		pReuse[Constants.VERTEX_INDEX_X] = pCoordinates[Constants.VERTEX_INDEX_X];
+		pReuse[Constants.VERTEX_INDEX_Y] = pCoordinates[Constants.VERTEX_INDEX_Y];
+
+		this.getParentToLocalTransformation().transform(pReuse);
+
+		return pReuse;
+	}
+
+	@Override
 	public float[] convertLocalCoordinatesToSceneCoordinates(final float pX, final float pY) {
 		return this.convertLocalCoordinatesToSceneCoordinates(pX, pY, Entity.VERTICES_LOCAL_TO_SCENE_TMP);
 	}
@@ -1348,6 +1425,7 @@ public class Entity implements IEntity {
 		this.mChildrenVisible = true;
 		this.mChildrenIgnoreUpdate = false;
 
+		this.mRotationOffset = IEntity.ROTATION_OFFSET_DEFAULT;
 		this.mRotation = 0;
 		this.mScaleX = 1;
 		this.mScaleY = 1;
@@ -1484,7 +1562,7 @@ public class Entity implements IEntity {
 	}
 
 	protected void applyRotation(final GLState pGLState) {
-		final float rotation = this.mRotation;
+		final float rotation = this.mRotation + this.mRotationOffset;
 
 		if (rotation != 0) {
 			final float localRotationCenterX = this.mLocalRotationCenterX;
