@@ -102,14 +102,14 @@ public class GLScissorStack {
 			height = (int) (yMax - yMin);
 		}
 
-		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_X_INDEX] = pX;
-		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_Y_INDEX] = pY;
-		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_WIDTH_INDEX] = pWidth;
-		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_HEIGHT_INDEX] = pHeight;
+		this.mScissorStackOffset += GLScissorStack.GLSCISSOR_SIZE;
+
+		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_X_INDEX] = x;
+		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_Y_INDEX] = y;
+		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_WIDTH_INDEX] = width;
+		this.mScissorStack[this.mScissorStackOffset + GLSCISSOR_HEIGHT_INDEX] = height;
 
 		GLES20.glScissor(x, y, width, height);
-
-		this.mScissorStackOffset += GLScissorStack.GLSCISSOR_SIZE;
 	}
 
 	public void glPopScissor() {
