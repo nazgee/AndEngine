@@ -34,6 +34,10 @@ public class FixedStepEngine extends Engine {
 		super(pEngineOptions);
 
 		this.mStepLength = TimeConstants.NANOSECONDS_PER_SECOND / pStepsPerSecond;
+
+		for (int i=0; i<mTickSamples.size(); i++) {
+			mTickSamples.add(this.mStepLength);
+		}
 	}
 
 	// ===========================================================
@@ -43,12 +47,18 @@ public class FixedStepEngine extends Engine {
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
+	CircularFifoBuffer mTickSamples = new CircularFifoBuffer(40);
+
 
 	@Override
 	public void onUpdate(final long pNanosecondsElapsed) throws InterruptedException {
+		mTickSamples.add(pNanosecondsElapsed);
+
+		long avg = CircularFifoUtils.avgLong(mTickSamples);
 		this.mSecondsElapsedAccumulator += pNanosecondsElapsed;
 
-		final long stepLength = this.mStepLength;
+//		final long stepLength = this.mStepLength;
+		final long stepLength = avg;
 		while (this.mSecondsElapsedAccumulator >= stepLength) {
 			super.onUpdate(stepLength);
 			this.mSecondsElapsedAccumulator -= stepLength;

@@ -236,21 +236,21 @@ public class NineSliceSprite extends Entity {
 
 		/* Top. */
 		final float topY = this.mHeight - this.mInsetTop;
-		this.mSpriteBatch.draw(this.mTopLeftTextureRegion, leftX, topY, this.mInsetLeft, this.mInsetTop, color);
-		this.mSpriteBatch.draw(this.mTopCenterTextureRegion, centerX, topY, centerWidth, this.mInsetTop, color);
-		this.mSpriteBatch.draw(this.mTopRightTextureRegion, rightX, topY, this.mInsetRight, this.mInsetTop, color);
+		this.mSpriteBatch.draw(this.mTopLeftTextureRegion, leftX, topY, this.mInsetLeft, this.mInsetTop, color, false, false);
+		this.mSpriteBatch.draw(this.mTopCenterTextureRegion, centerX, topY, centerWidth, this.mInsetTop, color, false, false);
+		this.mSpriteBatch.draw(this.mTopRightTextureRegion, rightX, topY, this.mInsetRight, this.mInsetTop, color, false, false);
 
 		/* Center. */
 		final float centerY = this.mInsetBottom;
-		this.mSpriteBatch.draw(this.mCenterLeftTextureRegion, leftX, centerY, this.mInsetLeft, centerHeight, color);
-		this.mSpriteBatch.draw(this.mCenterTextureRegion, centerX, centerY, centerWidth, centerHeight, color);
-		this.mSpriteBatch.draw(this.mCenterRightTextureRegion, rightX, centerY, this.mInsetRight, centerHeight, color);
+		this.mSpriteBatch.draw(this.mCenterLeftTextureRegion, leftX, centerY, this.mInsetLeft, centerHeight, color, false, false);
+		this.mSpriteBatch.draw(this.mCenterTextureRegion, centerX, centerY, centerWidth, centerHeight, color, false, false);
+		this.mSpriteBatch.draw(this.mCenterRightTextureRegion, rightX, centerY, this.mInsetRight, centerHeight, color, false, false);
 
 		/* Bottom. */
 		final float bottomY = 0;
-		this.mSpriteBatch.draw(this.mBottomLeftTextureRegion, leftX, bottomY, this.mInsetLeft, this.mInsetBottom, color);
-		this.mSpriteBatch.draw(this.mBottomCenterTextureRegion, centerX, bottomY, centerWidth, this.mInsetBottom, color);
-		this.mSpriteBatch.draw(this.mBottomRightTextureRegion, rightX, bottomY, this.mInsetRight, this.mInsetBottom, color);
+		this.mSpriteBatch.draw(this.mBottomLeftTextureRegion, leftX, bottomY, this.mInsetLeft, this.mInsetBottom, color, false, false);
+		this.mSpriteBatch.draw(this.mBottomCenterTextureRegion, centerX, bottomY, centerWidth, this.mInsetBottom, color, false, false);
+		this.mSpriteBatch.draw(this.mBottomRightTextureRegion, rightX, bottomY, this.mInsetRight, this.mInsetBottom, color, false, false);
 
 		this.mSpriteBatch.submit();
 	}

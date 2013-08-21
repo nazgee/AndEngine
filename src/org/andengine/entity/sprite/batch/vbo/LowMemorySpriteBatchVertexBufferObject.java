@@ -58,7 +58,7 @@ public class LowMemorySpriteBatchVertexBufferObject extends LowMemoryVertexBuffe
 	 * 2-4
 	 */
 	@Override
-	public void addWithPackedColor(final ITextureRegion pTextureRegion, final float pX1, final float pY1, final float pX2, final float pY2, final float pX3, final float pY3, final float pX4, final float pY4, final float pColorABGRPackedInt) {
+	public void addWithPackedColor(final ITextureRegion pTextureRegion, final float pX1, final float pY1, final float pX2, final float pY2, final float pX3, final float pY3, final float pX4, final float pY4, final float pColorABGRPackedInt, boolean pFlippedHorizontal, boolean pFlippedVertical) {
 		final FloatBuffer bufferData = this.getFloatBuffer();
 		final int bufferDataOffset = this.mBufferDataOffset;
 
@@ -70,10 +70,36 @@ public class LowMemorySpriteBatchVertexBufferObject extends LowMemoryVertexBuffe
 		final float y3 = pY3;
 		final float x4 = pX4;
 		final float y4 = pY4;
-		final float u = pTextureRegion.getU();
-		final float v = pTextureRegion.getV();
-		final float u2 = pTextureRegion.getU2();
-		final float v2 = pTextureRegion.getV2();
+		float u;
+		float v;
+		float u2;
+		float v2;
+
+		if (pFlippedVertical) {
+			if (pFlippedHorizontal) {
+				u = pTextureRegion.getU2();
+				u2 = pTextureRegion.getU();
+				v = pTextureRegion.getV2();
+				v2 = pTextureRegion.getV();
+			} else {
+				u = pTextureRegion.getU();
+				u2 = pTextureRegion.getU2();
+				v = pTextureRegion.getV2();
+				v2 = pTextureRegion.getV();
+			}
+		} else {
+			if (pFlippedHorizontal) {
+				u = pTextureRegion.getU2();
+				u2 = pTextureRegion.getU();
+				v = pTextureRegion.getV();
+				v2 = pTextureRegion.getV2();
+			} else {
+				u = pTextureRegion.getU();
+				u2 = pTextureRegion.getU2();
+				v = pTextureRegion.getV();
+				v2 = pTextureRegion.getV2();
+			}
+		}
 
 		if (pTextureRegion.isRotated()) {
 			bufferData.put(bufferDataOffset + 0 * SpriteBatch.VERTEX_SIZE + SpriteBatch.VERTEX_INDEX_X, x1);
@@ -159,7 +185,7 @@ public class LowMemorySpriteBatchVertexBufferObject extends LowMemoryVertexBuffe
 	 * +-2
 	 */
 	@Override
-	public void addWithPackedColor(final ITextureRegion pTextureRegion, final float pX1, final float pY1, final float pX2, final float pY2, final float pColorABGRPackedInt) {
+	public void addWithPackedColor(final ITextureRegion pTextureRegion, final float pX1, final float pY1, final float pX2, final float pY2, final float pColorABGRPackedInt, boolean pFlippedHorizontal, boolean pFlippedVertical) {
 		final FloatBuffer bufferData = this.getFloatBuffer();
 		final int bufferDataOffset = this.mBufferDataOffset;
 
@@ -167,10 +193,36 @@ public class LowMemorySpriteBatchVertexBufferObject extends LowMemoryVertexBuffe
 		final float y1 = pY1;
 		final float x2 = pX2;
 		final float y2 = pY2;
-		final float u = pTextureRegion.getU();
-		final float v = pTextureRegion.getV();
-		final float u2 = pTextureRegion.getU2();
-		final float v2 = pTextureRegion.getV2();
+		float u;
+		float v;
+		float u2;
+		float v2;
+
+		if (pFlippedVertical) {
+			if (pFlippedHorizontal) {
+				u = pTextureRegion.getU2();
+				u2 = pTextureRegion.getU();
+				v = pTextureRegion.getV2();
+				v2 = pTextureRegion.getV();
+			} else {
+				u = pTextureRegion.getU();
+				u2 = pTextureRegion.getU2();
+				v = pTextureRegion.getV2();
+				v2 = pTextureRegion.getV();
+			}
+		} else {
+			if (pFlippedVertical) {
+				u = pTextureRegion.getU2();
+				u2 = pTextureRegion.getU();
+				v = pTextureRegion.getV();
+				v2 = pTextureRegion.getV2();
+			} else {
+				u = pTextureRegion.getU();
+				u2 = pTextureRegion.getU2();
+				v = pTextureRegion.getV();
+				v2 = pTextureRegion.getV2();
+			}
+		}
 
 		if (pTextureRegion.isRotated()) {
 			bufferData.put(bufferDataOffset + 0 * SpriteBatch.VERTEX_SIZE + SpriteBatch.VERTEX_INDEX_X, x1);

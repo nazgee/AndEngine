@@ -70,7 +70,7 @@ public class BatchedPseudoSpriteParticleSystem extends BlendFunctionParticleSyst
 			final float alpha = entity.getAlpha();
 			final float colorABGRPackedInt = ColorUtils.convertRGBAToABGRPackedFloat(entity.getRed() * alpha, entity.getGreen() * alpha, entity.getBlue() * alpha, alpha);
 
-			this.mSpriteBatch.drawWithoutChecks(this.mTextureRegion, entity, colorABGRPackedInt);
+			this.mSpriteBatch.drawWithoutChecks(this.mTextureRegion, entity, colorABGRPackedInt, false, false);
 		}
 		this.mSpriteBatch.submit();
 
