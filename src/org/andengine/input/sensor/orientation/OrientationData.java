@@ -54,6 +54,10 @@ public class OrientationData extends BaseSensorData {
 		return super.mValues[SensorManager.DATA_X];
 	}
 
+	public float[] getRotationMatrix() {
+		return mRotationMatrix;
+	}
+
 	@Override
 	@Deprecated
 	public void setValues(final float[] pValues) {
