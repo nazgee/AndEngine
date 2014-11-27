@@ -130,7 +130,7 @@ public abstract class LineChain extends Shape {
 	public void setX(final float pX) {
 		final float dX = this.mX - pX;
 
-		for (int i = this.mIndex - 1; i >= 0; i++) {
+		for (int i = this.mIndex - 1; i >= 0; i--) {
 			this.mXs[i] += dX;
 		}
 
@@ -143,7 +143,7 @@ public abstract class LineChain extends Shape {
 	public void setY(final float pY) {
 		final float dY = this.mY - pY;
 
-		for (int i = this.mIndex - 1; i >= 0; i++) {
+		for (int i = this.mIndex - 1; i >= 0; i--) {
 			this.mYs[i] += dY;
 		}
 
@@ -157,7 +157,7 @@ public abstract class LineChain extends Shape {
 		final float dX = this.mX - pX;
 		final float dY = this.mY - pY;
 
-		for (int i = this.mIndex - 1; i >= 0; i++) {
+		for (int i = this.mIndex - 1; i >= 0; i--) {
 			this.mXs[i] += dX;
 			this.mYs[i] += dY;
 		}
