@@ -1142,7 +1142,7 @@ public class Entity implements IEntity {
 			}
 
 			/* Rotation. */
-			final float rotation = this.mRotation;
+			final float rotation = this.mRotation + mRotationOffset;
 			if (rotation != 0) {
 				final float rotationCenterX = this.mLocalRotationCenterX;
 				final float rotationCenterY = this.mLocalRotationCenterY;
@@ -1180,7 +1180,7 @@ public class Entity implements IEntity {
 			parentToLocalTransformation.postTranslate(-this.mX, -this.mY);
 
 			/* Rotation. */
-			final float rotation = this.mRotation;
+			final float rotation = this.mRotation + mRotationOffset;
 			if (rotation != 0) {
 				final float localRotationCenterX = this.mLocalRotationCenterX;
 				final float localRotationCenterY = this.mLocalRotationCenterY;
