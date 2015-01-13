@@ -733,7 +733,7 @@ public class SpriteBatch extends Shape {
 	 * @param pColorABGRPackedInt
 	 */
 	protected void addWithPackedColor(final ITextureRegion pTextureRegion, final float pX, final float pY, final float pWidth, final float pHeight, final float pColorABGRPackedInt, boolean pFlippedHorizontal, boolean pFlippedVertical) {
-		this.mSpriteBatchVertexBufferObject.addWithPackedColor(pTextureRegion, pX, pY, pX + pWidth, pY + pHeight, pColorABGRPackedInt, pFlippedHorizontal, pFlippedVertical);
+		this.mSpriteBatchVertexBufferObject.addWithPackedColor(pTextureRegion, pX - pWidth/2, pY - pHeight/2, pX + pWidth/2, pY + pHeight/2, pColorABGRPackedInt, pFlippedHorizontal, pFlippedVertical);
 	}
 
 	/**
