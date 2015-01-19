@@ -2,7 +2,9 @@ package org.andengine.opengl.view;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.options.ConfigChooserOptions;
+import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.engine.options.resolutionpolicy.IResolutionPolicy;
+import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -63,7 +65,15 @@ public class RenderSurfaceView extends GLSurfaceView implements IResolutionPolic
 	 */
 	@Override
 	protected void onMeasure(final int pWidthMeasureSpec, final int pHeightMeasureSpec) {
-		this.mEngineRenderer.mEngine.getEngineOptions().getResolutionPolicy().onMeasure(this, pWidthMeasureSpec, pHeightMeasureSpec);
+		if (mEngineRenderer != null
+				&& mEngineRenderer.mEngine != null
+				&& this.mEngineRenderer.mEngine.getEngineOptions() != null
+				&& this.mEngineRenderer.mEngine.getEngineOptions().getResolutionPolicy() != null) {
+			this.mEngineRenderer.mEngine.getEngineOptions().getResolutionPolicy().onMeasure(this, pWidthMeasureSpec, pHeightMeasureSpec);
+		} else {
+			FillResolutionPolicy frp = new FillResolutionPolicy();
+			frp.onMeasure(this, pWidthMeasureSpec, pHeightMeasureSpec);
+		}
 	}
 
 	@Override
