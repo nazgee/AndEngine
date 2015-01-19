@@ -29,6 +29,7 @@ import org.andengine.util.Constants;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.system.SystemUtils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
@@ -233,6 +234,10 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 		if (pHasWindowFocus && this.mGamePaused && this.mGameCreated && !this.isFinishing()) {
 			this.onResumeGame();
 		}
+
+		if (pHasWindowFocus) {
+			ActivityUtils.tryImmersive(this);
+		}
 	}
 
 	@Override
@@ -429,6 +434,7 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 
 		if (engineOptions.isFullscreen()) {
 			ActivityUtils.requestFullscreen(this);
+			ActivityUtils.tryImmersive(this);
 		}
 
 		if (engineOptions.getAudioOptions().needsMusic() || engineOptions.getAudioOptions().needsSound()) {

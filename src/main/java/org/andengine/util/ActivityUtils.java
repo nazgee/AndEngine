@@ -8,13 +8,17 @@ import org.andengine.util.exception.CancelledException;
 import org.andengine.util.progress.IProgressListener;
 import org.andengine.util.progress.ProgressCallable;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Looper;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -65,6 +69,23 @@ public final class ActivityUtils {
 		window.requestFeature(Window.FEATURE_NO_TITLE);
 	}
 
+	@SuppressLint("NewApi")
+	public static final void tryImmersive(final Activity pActivity) {
+		Debug.i("trying to go immersive");
+		boolean emulator = (Build.MODEL.contains("google_sdk") ||
+				Build.MODEL.contains("Emulator") ||
+				Build.MODEL.contains("Android SDK"));
+
+		if (Build.VERSION.SDK_INT >= 19 && !emulator) {
+			pActivity.getWindow().getDecorView().setSystemUiVisibility(
+					View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+					View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+							View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+							View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+							View.SYSTEM_UI_FLAG_FULLSCREEN |
+							View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+		}
+	}
 	/**
 	 * @param pActivity
 	 * @param pScreenBrightness [0..1]
