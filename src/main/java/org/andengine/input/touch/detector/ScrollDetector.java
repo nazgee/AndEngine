@@ -55,6 +55,10 @@ public class ScrollDetector extends BaseDetector {
 		this.mTriggerScrollMinimumDistance = pTriggerScrollMinimumDistance;
 	}
 
+	public boolean isTriggering() {
+		return mTriggering;
+	}
+
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
