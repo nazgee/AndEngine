@@ -361,6 +361,8 @@ public class Entity implements IEntity {
 		this.mHeight = pHeight;
 
 		this.updateLocalCenters();
+		this.mLocalToParentTransformationDirty = true;
+		this.mParentToLocalTransformationDirty = true;
 	}
 
 	@Override
