@@ -1,29 +1,31 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.model.library'
 
-android {
-    compileSdkVersion 19
-    buildToolsVersion "21.1.2"
+model {
+    android {
+        compileSdkVersion = 19
+        buildToolsVersion = '23.0.2'
 
-    defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 17
+        defaultConfig {
+            minSdkVersion.apiLevel = 9
+            targetSdkVersion.apiLevel = 17
 
-        ndk {
-            moduleName "andengine_shared"
-            stl "stlport_shared"
-            ldLibs "GLESv2"
+            ndk {
+                moduleName = "andengine_shared"
+                stl = "stlport_shared"
+                ldLibs.add("GLESv2")
+            }
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-	        debuggable false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            minifyEnabled = false
+            debuggable = false
+            proguardFiles.add(file('proguard-project.txt'))
         }
     }
+}
 
-	dependencies {
-		compile 'com.android.support:support-v4:19.1.0'
-	}
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
 }
