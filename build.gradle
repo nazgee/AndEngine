@@ -2,12 +2,12 @@ apply plugin: 'com.android.model.library'
 
 model {
     android {
-        compileSdkVersion = 19
+        compileSdkVersion = 21
         buildToolsVersion = '23.0.2'
 
         defaultConfig {
-            minSdkVersion.apiLevel = 9
-            targetSdkVersion.apiLevel = 17
+            minSdkVersion.apiLevel = 14
+            targetSdkVersion.apiLevel = 21
 
             ndk {
                 moduleName = "andengine_shared"
@@ -27,5 +27,5 @@ model {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:support-v4:+'
 }
